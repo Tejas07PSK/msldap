@@ -11,7 +11,7 @@
     <groupId>org.gadstn</groupId>
     <artifactId>msldap</artifactId>
     <version>0.0.1-build25120</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>msldap</name>
     <description>LDAP server micro-service implementation using spring boot.</description>
 
@@ -59,6 +59,15 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>2.0.16</version>
+                <configuration>
+                    <appName>msldap</appName>
+                    <warFile>target/msldap-0.0.1-build25120.jar</warFile>
+                </configuration>
             </plugin>
         </plugins>
     </build>
