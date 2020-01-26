@@ -1,0 +1,1 @@
+web: java -jar $JAVA_OPTS -Dserver.port=$PORT target/msldap-0.0.1-build25120.jar
