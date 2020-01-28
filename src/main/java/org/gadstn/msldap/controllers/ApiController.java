@@ -9,6 +9,7 @@
 package org.gadstn.msldap.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +23,7 @@ public class ApiController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping( value = "/ldap/auth/get", method = RequestMethod.POST )
+    @RequestMapping( value = "/ldap/auth/get", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = { MediaType.TEXT_PLAIN_VALUE, MediaType.APPLICATION_JSON_VALUE } )
     public String auth( @RequestBody Map < String, String > req ) throws Exception {
 
         return userService.authenticate( req.get( "soeid" ), req.get( "pass" ) );
