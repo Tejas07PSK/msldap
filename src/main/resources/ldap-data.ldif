@@ -16,6 +16,7 @@ objectclass: organizationalPerson
 objectclass: inetOrgPerson
 cn: Ankit Tiwari
 sn: Tiwari
+sAMAccountName: bawaRavan@nsroot.net
 uid: bawaRavan
 userPassword: wipro@123
 email: ankit.tiwari13@azure.com
@@ -28,6 +29,7 @@ objectclass: organizationalPerson
 objectclass: inetOrgPerson
 cn: Palash Sarkar
 sn: Sarkar
+sAMAccountName: bawaParshoram@nsroot.net
 uid: bawaParshoram
 userPassword: wipro@1234
 email: palash.sarkar3@azure.com
