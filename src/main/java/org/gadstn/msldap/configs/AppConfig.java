@@ -14,13 +14,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.data.ldap.repository.config.EnableLdapRepositories;
 
 @Configuration
 @PropertySource( "classpath:application.properties" )
 @ComponentScan( basePackages = { "org.gadstn.msldap.*", "org.gadstn.msldap.**" } )
-@Profile( "embedded" )
-@EnableLdapRepositories( basePackages = "org.gadstn.msldap.**" )
+@Profile( "default" )
 public class AppConfig {
 
     @Autowired
