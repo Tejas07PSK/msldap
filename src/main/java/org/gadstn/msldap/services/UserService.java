@@ -9,7 +9,7 @@
 package org.gadstn.msldap.services;
 
 import org.gadstn.msldap.pojos.User;
-import org.gadstn.msldap.repo.UserRepository;
+import org.gadstn.msldap.serviceimpl.LdapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +21,11 @@ import java.util.Base64;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    private LdapService ldapService;
 
     public String authenticate ( final String soeid, final String password ) {
 
-        User user = userRepository.findByUseridAndUserpass( soeid, password );
+        User user = ldapService.getUserDetailsFromLdap( soeid, password );
         if ( user != null ) { return ( user.toString() ); }
         else { return ( "Auth failed!!" ); }
 
@@ -43,4 +43,5 @@ public class UserService {
         return ( "{SHA}" + base64 );
 
     }
+
 }
