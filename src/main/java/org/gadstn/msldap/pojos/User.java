@@ -8,48 +8,28 @@
 
 package org.gadstn.msldap.pojos;
 
-import javax.naming.Name;
-
-import org.springframework.ldap.odm.annotations.Attribute;
-import org.springframework.ldap.odm.annotations.Entry;
-import org.springframework.ldap.odm.annotations.Id;
-
-@Entry( base = "dc=nsroot,dc=net", objectClasses = { "top", "person", "organizationalPerson", "inetOrgPerson" } )
 public class User  {
 
-    @Id
-    private Name id;
+    private String userfullname;
 
-    private @Attribute( name = "cn" ) String userfullname;
+    private String userid;
 
-    private @Attribute( name = "uid" ) String userid;
+    private String useremail;
 
-    private @Attribute( name = "userPassword" ) String userpass;
-
-    private @Attribute( name = "email" ) String useremail;
-
-    private @Attribute( name = "phone" ) String userphone;
+    private String userphone;
 
     public User () { }
 
-    public User ( String userfullname, String userPass, String userEmail, String userPhone ) {
+    public User ( String userfullname, String userid, String useremail, String userphone ) {
 
-        this.userfullname = userfullname; this.userpass = userPass;
-        this.useremail = userEmail; this.userphone = userPhone;
+        this.userfullname = userfullname; this.userid = userid;
+        this.useremail = useremail; this.userphone = userphone;
 
     }
-
-    public Name getId () { return ( id ); }
-
-    public void setId ( Name id ) { this.id = id; }
 
     public String getUserfullname () { return ( userfullname ); }
 
     public void setUserfullname ( String userfullname ) { this.userfullname = userfullname; }
-
-    public String getUserPass () { return ( userpass ); }
-
-    public void setUserPass ( String userpass ) { this.userpass = userpass; }
 
     public String getUserEmail () { return ( useremail ); }
 
@@ -66,7 +46,7 @@ public class User  {
     @Override
     public String toString () {
 
-        return ( "{ " + "\"soeid\": \'" + userid + "\', " + "\"fullname\": \'" + userfullname + "\', " + "\"email\": \'" + useremail + "\', " + "\"phone\": \'" + userphone + "\', " + "\"userdn\": \'" + id + "\' " + "}" );
+        return ( "{ " + "\"soeid\": \'" + userid + "\', " + "\"fullname\": \'" + userfullname + "\', " + "\"email\": \'" + useremail + "\', " + "\"phone\": \'" + userphone + "\' " + "}" );
 
     }
 
