@@ -30,10 +30,10 @@ public class LdapServiceImpl implements LdapService {
         Hashtable prop = new Hashtable ();
         prop.put( Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory" );
         prop.put( Context.SECURITY_AUTHENTICATION, "Simple" );
-        prop.put( Context.SECURITY_PRINCIPAL, "uid=" + userid + ",ou=people,dc=nsroot,dc=net" );
+        prop.put( Context.SECURITY_PRINCIPAL, "uid=" + userid + ",dc=example,dc=com" );
         prop.put( Context.SECURITY_CREDENTIALS, userpass );
-        prop.put( Context.PROVIDER_URL, "ldap://localhost:10389" );
-        String [] schAttrs = { "cn", "sn", "uid", "email", "phone" };
+        prop.put( Context.PROVIDER_URL, "ldap://ldap.forumsys.com:389/" );
+        String [] schAttrs = { "cn", "uid", "mail", "sn" };
         SearchControls filter = null; NamingEnumeration res = null; Attributes attrs;
         try {
 
@@ -45,15 +45,16 @@ public class LdapServiceImpl implements LdapService {
             filter = new SearchControls ();
             filter.setSearchScope( SearchControls.SUBTREE_SCOPE );
             filter.setReturningAttributes( schAttrs );
-            res = ctx.search( "DC=nsroot,DC=net", "sAMAccountName=" + userid + "@nsroot.net", filter );
+            res = ctx.search( "DC=example,DC=com", "uid=" + userid /*+ "@example.com"*/, filter );
             if ( res.hasMore() ) {
 
                 attrs = ( (SearchResult) res.next() ).getAttributes();
-                u = new User ( (String) attrs.get( "cn" ).get(), (String) attrs.get( "uid" ).get(), (String) attrs.get( "email" ).get(), (String) attrs.get( "phone" ).get() );
+                u = new User ( (String) attrs.get( "cn" ).get(), (String) attrs.get( "uid" ).get(), (String) attrs.get( "mail" ).get(), (String) attrs.get( "sn" ).get() );
                 System.out.println( u.toString() );
 
-            }
+            } else { u = new User (); }
             System.out.println( "Done !!" );
+            ctx.close();
 
         } catch( NamingException ex ) { System.out.println( "LDAP Connection/Auth : FAILED" ); ex.printStackTrace(); }
         return ( u );
