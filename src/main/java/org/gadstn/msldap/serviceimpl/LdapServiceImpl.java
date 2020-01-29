@@ -18,23 +18,45 @@ import javax.naming.directory.SearchResult;
 import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
 import org.gadstn.msldap.pojos.User;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class LdapServiceImpl implements LdapService {
 
-    @Override
-    public User getUserDetailsFromLdap ( String userid, String userpass ) {
+    @Autowired
+    private BeanFactory beanFactory;
 
-        User u = null; LdapContext ctx = null;
-        Hashtable prop = new Hashtable ();
-        prop.put( Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory" );
-        prop.put( Context.SECURITY_AUTHENTICATION, "Simple" );
+    private static final String [] schAttrs = { "cn", "uid", "mail", "sn" };
+    private static final String ad_root = "DC=example,DC=com", user_suffix_dom = "@nsroot.net";
+
+    private LdapContext ctx;
+    private SearchControls filter;
+    private NamingEnumeration res;
+    private Attributes attrs;
+    private Hashtable < String, String > prop;
+
+    public LdapServiceImpl () {
+
+        this.ctx = null;
+        this.filter = null;
+        this.res = null;
+        this.attrs = null;
+        this.prop = new Hashtable <> ();
+
+        this.prop.put( Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory" );
+        this.prop.put( Context.SECURITY_AUTHENTICATION, "Simple" );
+        prop.put( Context.PROVIDER_URL, "ldap://ldap.forumsys.com:389/" );
+
+    }
+
+    @Override
+    public User getUserDetailsFromLdap ( final String userid, final String userpass ) {
+
+        User u = null;
         prop.put( Context.SECURITY_PRINCIPAL, "uid=" + userid + ",dc=example,dc=com" );
         prop.put( Context.SECURITY_CREDENTIALS, userpass );
-        prop.put( Context.PROVIDER_URL, "ldap://ldap.forumsys.com:389/" );
-        String [] schAttrs = { "cn", "uid", "mail", "sn" };
-        SearchControls filter = null; NamingEnumeration res = null; Attributes attrs;
         try {
 
             System.out.println( "Connecting to ldap server .... !!" );
@@ -45,11 +67,11 @@ public class LdapServiceImpl implements LdapService {
             filter = new SearchControls ();
             filter.setSearchScope( SearchControls.SUBTREE_SCOPE );
             filter.setReturningAttributes( schAttrs );
-            res = ctx.search( "DC=example,DC=com", "uid=" + userid /*+ "@example.com"*/, filter );
+            res = ctx.search( ad_root, "uid=" + userid, filter );
             if ( res.hasMore() ) {
 
                 attrs = ( (SearchResult) res.next() ).getAttributes();
-                u = new User ( (String) attrs.get( "cn" ).get(), (String) attrs.get( "uid" ).get(), (String) attrs.get( "mail" ).get(), (String) attrs.get( "sn" ).get() );
+                u = beanFactory.getBean( User.class, (String) attrs.get( "cn" ).get(), (String) attrs.get( "uid" ).get(), (String) attrs.get( "mail" ).get(), (String) attrs.get( "sn" ).get() );
                 System.out.println( u.toString() );
 
             } else { u = new User (); }
