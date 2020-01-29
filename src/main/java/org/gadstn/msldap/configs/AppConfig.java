@@ -9,11 +9,10 @@
 package org.gadstn.msldap.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
+import org.gadstn.msldap.pojos.User;
+import java.lang.String;
 
 @Configuration
 @PropertySource( "classpath:application.properties" )
@@ -23,5 +22,13 @@ public class AppConfig {
 
     @Autowired
     private Environment env;
+
+    @Bean
+    @Scope( "prototype" )
+    public User user( String userfullname, String userid, String useremail, String userphone ) {
+
+        return ( new User ( userfullname, userid, useremail, userphone ) );
+
+    }
 
 }
