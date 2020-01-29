@@ -17,4 +17,7 @@ public class ResourceController {
     @GetMapping( "/login" )
     public String returnLoginPage() { return ( "testlogin.html" ); }
 
+    @GetMapping( "/" )
+    public String returnHomePage() { return ( "home.html" ); }
+
 }
