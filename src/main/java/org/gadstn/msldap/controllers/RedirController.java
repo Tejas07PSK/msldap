@@ -24,7 +24,7 @@ public class RedirController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping( value = "/form/ldap/auth/get", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = { MediaType.TEXT_PLAIN_VALUE, MediaType.APPLICATION_JSON_VALUE } )
+    @RequestMapping( value = "/form/ldap/auth/get", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
     public String authenticate( @RequestParam Map< String, String > paramMap ) throws Exception {
 
         return userService.authenticate( paramMap.get( "soeid" ), paramMap.get( "pass" ) );
