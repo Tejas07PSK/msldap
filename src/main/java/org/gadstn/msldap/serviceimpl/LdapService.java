@@ -4,6 +4,6 @@ import org.gadstn.msldap.pojos.User;
 
 public interface LdapService {
 
-    User getUserDetailsFromLdap ( String userid, String userpass );
+    User getUserDetailsFromLdap ( final String userid, final String userpass );
 
 }
