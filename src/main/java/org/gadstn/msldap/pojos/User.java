@@ -46,7 +46,7 @@ public class User  {
     @Override
     public String toString () {
 
-        return ( "{ " + "\"soeid\": \'" + userid + "\', " + "\"fullname\": \'" + userfullname + "\', " + "\"email\": \'" + useremail + "\', " + "\"phone\": \'" + userphone + "\' " + "}" );
+        return ( "{ \"Auth\": \'OK!!\', " + "\"soeid\": \'" + userid + "\', " + "\"fullname\": \'" + userfullname + "\', " + "\"email\": \'" + useremail + "\', " + "\"phone\": \'" + userphone + "\' " + "}" );
 
     }
 
