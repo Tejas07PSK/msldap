@@ -27,7 +27,7 @@ public class UserService {
 
         User user = ldapService.getUserDetailsFromLdap( soeid, password );
         if ( user != null ) { return ( user.toString() ); }
-        else { return ( "Auth failed!!" ); }
+        else { return ( "{ \"Auth\": \'Failed!!\' }" ); }
 
     }
 
