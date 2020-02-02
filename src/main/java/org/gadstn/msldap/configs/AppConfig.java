@@ -25,7 +25,7 @@ public class AppConfig {
 
     @Bean
     @Scope( "prototype" )
-    public User user( String userfullname, String userid, String useremail, String userphone ) {
+     synchronized public User user( String userfullname, String userid, String useremail, String userphone ) {
 
         return ( new User ( userfullname, userid, useremail, userphone ) );
 
