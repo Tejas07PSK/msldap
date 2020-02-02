@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ResourceController {
 
     @GetMapping( "/login" )
-    public String returnLoginPage() { return ( "testlogin.html" ); }
+    synchronized public String returnLoginPage() { return ( "testlogin.html" ); }
 
     @GetMapping( "/" )
-    public String returnHomePage() { return ( "home.html" ); }
+    synchronized public String returnHomePage() { return ( "home.html" ); }
 
 }
