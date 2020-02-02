@@ -27,24 +27,24 @@ public class User  {
 
     }
 
-    public String getUserfullname () { return ( userfullname ); }
+    synchronized public String getUserfullname () { return ( userfullname ); }
 
-    public void setUserfullname ( String userfullname ) { this.userfullname = userfullname; }
+    synchronized public void setUserfullname ( String userfullname ) { this.userfullname = userfullname; }
 
-    public String getUserEmail () { return ( useremail ); }
+    synchronized public String getUserEmail () { return ( useremail ); }
 
-    public void setUserEmail ( String useremail ) { this.useremail = useremail; }
+    synchronized public void setUserEmail ( String useremail ) { this.useremail = useremail; }
 
-    public String getUserPhone () { return ( userphone ); }
+    synchronized public String getUserPhone () { return ( userphone ); }
 
-    public void setUserPhone ( String userphone ) { this.userphone = userphone; }
+    synchronized public void setUserPhone ( String userphone ) { this.userphone = userphone; }
 
-    public String getUserid () { return ( userid ); }
+    synchronized public String getUserid () { return ( userid ); }
 
-    public void setUserid ( String userid ) { this.userid = userid; }
+    synchronized public void setUserid ( String userid ) { this.userid = userid; }
 
     @Override
-    public String toString () {
+    synchronized public String toString () {
 
         return ( "{ \"Auth\": \'OK!!\', " + "\"soeid\": \'" + userid + "\', " + "\"fullname\": \'" + userfullname + "\', " + "\"email\": \'" + useremail + "\', " + "\"phone\": \'" + userphone + "\' " + "}" );
 
