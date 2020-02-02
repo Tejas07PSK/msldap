@@ -23,7 +23,7 @@ public class UserService {
     @Autowired
     private LdapService ldapService;
 
-    public String authenticate ( final String soeid, final String password ) {
+    synchronized public String authenticate ( final String soeid, final String password ) {
 
         User user = ldapService.getUserDetailsFromLdap( soeid, password );
         if ( user != null ) { return ( user.toString() ); }
@@ -31,7 +31,7 @@ public class UserService {
 
     }
 
-    private String toSHA ( final String password ) {
+    synchronized private String toSHA ( final String password ) {
 
         String base64;
         try {
