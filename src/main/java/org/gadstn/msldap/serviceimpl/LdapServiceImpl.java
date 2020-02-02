@@ -47,16 +47,18 @@ public class LdapServiceImpl implements LdapService {
 
         this.prop.put( Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory" );
         this.prop.put( Context.SECURITY_AUTHENTICATION, "Simple" );
-        prop.put( Context.PROVIDER_URL, "ldap://ldap.forumsys.com:389/" );
+        this.prop.put( Context.PROVIDER_URL, "ldap://ldap.forumsys.com:389/" );
+        this.prop.put( Context.SECURITY_PRINCIPAL, "" );
+        this.prop.put( Context.SECURITY_CREDENTIALS, "" );
 
     }
 
     @Override
-    public User getUserDetailsFromLdap ( final String userid, final String userpass ) {
+    synchronized public User getUserDetailsFromLdap ( final String userid, final String userpass ) {
 
         User u = null;
-        prop.put( Context.SECURITY_PRINCIPAL, "uid=" + userid + ",dc=example,dc=com" );
-        prop.put( Context.SECURITY_CREDENTIALS, userpass );
+        prop.replace( Context.SECURITY_PRINCIPAL, ( "uid=" + userid + ",dc=example,dc=com" ) );
+        prop.replace( Context.SECURITY_CREDENTIALS, userpass );
         try {
 
             System.out.println( "Connecting to ldap server .... !!" );
@@ -79,6 +81,7 @@ public class LdapServiceImpl implements LdapService {
             ctx.close();
 
         } catch( NamingException ex ) { System.out.println( "LDAP Connection/Auth : FAILED" ); ex.printStackTrace(); }
+        finally { ctx = null; filter = null; res = null; attrs = null; }
         return ( u );
 
     }
