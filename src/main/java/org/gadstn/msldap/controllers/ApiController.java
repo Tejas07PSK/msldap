@@ -24,7 +24,7 @@ public class ApiController {
     private UserService userService;
 
     @RequestMapping( value = "/ldap/auth/get", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
-    public String auth( @RequestBody Map < String, String > req ) throws Exception {
+    synchronized public String auth( @RequestBody Map < String, String > req ) throws Exception {
 
         return userService.authenticate( req.get( "soeid" ), req.get( "pass" ) );
 
